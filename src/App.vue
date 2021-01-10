@@ -5,8 +5,14 @@
     </header>
 
     <section class="main-content w-50 mx-auto">
-      <main-navigation></main-navigation>
-      <windows-list></windows-list>
+
+      <main-navigation
+        :navTable="navTable"
+        :navSelected="navSelected"
+        @navItem-updated="updatedNavItem"></main-navigation>
+
+      <windows-list v-if="isSelected('Windows')"></windows-list>
+
     </section>
   </div>
 </template>
@@ -23,7 +29,17 @@ export default {
   },
   data: function() {
     return {
-      title: 'My App Title'
+      title: 'My App Title',
+      navTable: ['Windows','Rooms'],
+      navSelected: 'Windows'
+    }
+  },
+  methods: {
+    updatedNavItem: function(navItem) {
+      this.navSelected = navItem;
+    },
+    isSelected: function (navItem) {
+      return this.navSelected == navItem;
     }
   }
 }
