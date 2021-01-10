@@ -5,13 +5,13 @@
     </header>
 
     <section class="main-content w-50 mx-auto">
-
       <main-navigation
         :navTable="navTable"
         :navSelected="navSelected"
         @navItem-updated="updatedNavItem"></main-navigation>
 
       <windows-list v-if="isSelected('Windows')"></windows-list>
+      <rooms-list v-if="isSelected('Rooms')"></rooms-list>
 
     </section>
   </div>
@@ -20,12 +20,14 @@
 <script>
 import MainNavigation from './components/MainNavigation.vue';
 import WindowsList from './components/WindowsList.vue';
+import RoomsList from './components/RoomsList.vue';
 
 export default {
   name: 'App',
   components: {
     MainNavigation,
-    WindowsList
+    WindowsList,
+    RoomsList
   },
   data: function() {
     return {
