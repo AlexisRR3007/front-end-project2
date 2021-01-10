@@ -17,6 +17,7 @@
             v-for="window in room.listOfWindow"
             :window="window"
             :key="window.id"
+            @window-updated="updateWindow"
           >
           </windows-list-item>
   </div>
@@ -44,6 +45,11 @@ export default {
   methods: {
     toggleExpand() {
       this.isExpanded = !this.isExpanded;
+    },
+    updateWindow(newWindow) {
+      /* Find the place of window objectw ith the same Id in the array, and replace it */
+      let index = this.room.listOfWindow.findIndex(window => window.id === newWindow.id);
+      this.room.listOfWindow.splice(index, 1, newWindow);
     },
     async switchRoom() {
       let response = await axios.put(`${API_HOST}/api/rooms/${this.room.id}/switch`);
