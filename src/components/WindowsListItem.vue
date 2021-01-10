@@ -62,6 +62,7 @@ export default {
     },
     async switchWindow() {
       this.windowIsSwitching = true;
+      this.toggleExpand();
       var icon = setTimeout(() => this.windowIsSwitchingIcon = this.windowIsSwitching ? true : false, 300)
       let response = await axios.put(`${API_HOST}/api/windows/${this.window.id}/switch`);
       let updatedWindow = response.data;
