@@ -1,10 +1,17 @@
 <template>
   <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Windows</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Rooms</a>
+    <li class="nav-item" 
+        v-for="navItem in navTable"
+        :key="navItem"
+        @click="switchNavItem(navItem)">
+
+      <a class="nav-link" 
+        :class="{active: isSelected(navItem)}"
+        style="color: black"
+        href="#"
+        :aria-current="isSelected(navItem) ? 'page' : false">
+        {{navItem}}</a>
+
     </li>
   </ul>
 </template>
@@ -12,6 +19,15 @@
 
 <script>
 export default {
-  name: 'MainNavigation'
+  name: 'MainNavigation',
+  props: ['navTable','navSelected'],
+  methods : {
+    isSelected: function (navItem) {
+      return this.navSelected == navItem;
+    },
+    switchNavItem: function (navItem) {
+      this.$emit('navItem-updated', navItem);
+    }
+  },
 }
 </script>

@@ -27,11 +27,13 @@ export default {
       windows: []
     }
   },
+
   created: async function() {
     let response = await axios.get(`${API_HOST}/api/windows`);
     let windows = response.data;
     this.windows = windows;
   },
+
   methods: {
     updateWindow(newWindow) {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
