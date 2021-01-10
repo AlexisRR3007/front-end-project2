@@ -51,11 +51,10 @@ export default {
       this.isExpanded = !this.isExpanded;
     },
     async switchAllWindows() {
-      console.log("t");
       for(let i = 0; i < this.room.listOfWindow.length; i++) {
-        console.log("couou");
         this.$refs.windowslistref[i].switchWindow();
       }
+    },
     updateWindow(newWindow) {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
       let index = this.room.listOfWindow.findIndex(window => window.id === newWindow.id);
