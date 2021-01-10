@@ -13,11 +13,15 @@
       <hr/>
        <div class="windows-list pt-3 d-flex flex-column">
           <div class="fw-bold align-self-start pb-3 pe-3">Windows :</div>
+            <div class="details d-flex justify-content-around justi pb-3">
+              <button type="button" class="btn btn-primary me-2" @click="switchAllWindows"> Switch all windows</button>
+            </div>
           <windows-list-item 
             v-for="window in room.listOfWindow"
             :window="window"
             :key="window.id"
             @window-updated="updateWindow"
+            ref="windowslistref"
           >
           </windows-list-item>
   </div>
@@ -46,6 +50,12 @@ export default {
     toggleExpand() {
       this.isExpanded = !this.isExpanded;
     },
+    async switchAllWindows() {
+      console.log("t");
+      for(let i = 0; i < this.room.listOfWindow.length; i++) {
+        console.log("couou");
+        this.$refs.windowslistref[i].switchWindow();
+      }
     updateWindow(newWindow) {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
       let index = this.room.listOfWindow.findIndex(window => window.id === newWindow.id);
