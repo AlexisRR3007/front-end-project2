@@ -4,12 +4,18 @@
       <div class="window-name fw-bold pe-3">{{window.name}}</div>
       <div class="room-name text-muted">{{window.roomName}}</div>
 
-      <div class="open-status ms-4" :class="{open: isWindowOpen, closed: !isWindowOpen}">
-        <template v-if="isWindowOpen">
+      <div class="open-status ms-4" :class="{open: isWindowOpen && !windowIsSwitchingIcon, closed: !isWindowOpen && !windowIsSwitchingIcon}">
+        <template v-if="isWindowOpen && !windowIsSwitchingIcon">
           <span class="icon">&#x2B24;</span> Open
         </template>
-        <template v-else>
+        <template v-if="!isWindowOpen && !windowIsSwitchingIcon">
           <span class="icon">&#x2716;</span> Closed
+        </template>
+        <template v-if="isWindowOpen && windowIsSwitchingIcon">
+          <span class="icon">&#9203;</span> Wait for closing
+        </template>
+        <template v-if="!isWindowOpen && windowIsSwitchingIcon">
+          <span class="icon">&#9203;</span> Wait for opening
         </template>
       </div>
 
@@ -20,7 +26,11 @@
     <template v-if="isExpanded">
       <hr/>
       <div class="details d-flex">
-        <button type="button" class="btn btn-secondary me-2" @click="switchWindow">{{ isWindowOpen ? 'Close' : 'Open' }} window</button>
+        <button 
+          type="button" 
+          class="btn btn-primary me-2"
+          :class="{disabled: windowIsSwitching}" 
+          @click="switchWindow">{{ isWindowOpen ? 'Close' : 'Open' }} window</button>
         <button type="button" class="btn btn-danger disabled">Delete window</button>
       </div>
     </template>
@@ -36,7 +46,9 @@ export default {
   props: ['window'],
   data: function() {
     return {
-      isExpanded: false
+      isExpanded: false,
+      windowIsSwitching: false,
+      windowIsSwitchingIcon: false
     }
   }, 
   computed: {
@@ -49,9 +61,14 @@ export default {
       this.isExpanded = !this.isExpanded;
     },
     async switchWindow() {
+      this.windowIsSwitching = true;
+      var icon = setTimeout(() => this.windowIsSwitchingIcon = this.windowIsSwitching ? true : false, 300)
       let response = await axios.put(`${API_HOST}/api/windows/${this.window.id}/switch`);
       let updatedWindow = response.data;
       this.$emit('window-updated', updatedWindow);
+      clearTimeout(icon);
+      this.windowIsSwitchingIcon = false;
+      this.windowIsSwitching = false;
     }
   }
 }
