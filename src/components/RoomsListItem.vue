@@ -12,19 +12,12 @@
     <template v-if="isExpanded">
       <hr/>
        <div class="windows-list pt-3 d-flex flex-column">
-          <div class="fw-bold align-self-start pb-3 pe-3">Windows :</div>
-            <div class="details d-flex justify-content-around justi pb-3">
-              <button type="button" class="btn btn-primary me-2" @click="switchAllWindows"> Switch all windows</button>
-            </div>
-          <windows-list-item 
-            v-for="window in room.listOfWindow"
-            :window="window"
-            :key="window.id"
-            @window-updated="updateWindow"
-            ref="windowslistref"
+          <rooms-windows-list 
+            :roomId="room.id"
+            :windows="room.listOfWindow"
           >
-          </windows-list-item>
-  </div>
+          </rooms-windows-list>
+          </div>
     </template>
 
   </div>
@@ -33,13 +26,13 @@
 <script>
 import axios from 'axios';
 import {API_HOST} from '../config';
-import WindowsListItem from './WindowsListItem';
+import RoomsWindowsList from './RoomsWindowsList';
 
 export default {
   name: 'RoomsListItem',
   props: ['room'],
   components: {
-    WindowsListItem
+    RoomsWindowsList
   },
   data: function() {
     return {
@@ -50,21 +43,6 @@ export default {
     toggleExpand() {
       this.isExpanded = !this.isExpanded;
     },
-    async switchAllWindows() {
-      for(let i = 0; i < this.room.listOfWindow.length; i++) {
-        this.$refs.windowslistref[i].switchWindow();
-      }
-    },
-    updateWindow(newWindow) {
-      /* Find the place of window objectw ith the same Id in the array, and replace it */
-      let index = this.room.listOfWindow.findIndex(window => window.id === newWindow.id);
-      this.room.listOfWindow.splice(index, 1, newWindow);
-    },
-    async switchRoom() {
-      let response = await axios.put(`${API_HOST}/api/rooms/${this.room.id}/switch`);
-      let updatedRoom = response.data;
-      this.$emit('room-updated', updatedRoom);
-    }
   }
 }
 </script>
@@ -93,9 +71,5 @@ export default {
   .top-row {
     cursor: pointer;
   }
-}
-
-.sub-title {
-  margin: 15px;
 }
 </style>
