@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <header>
+      <img src="./assets/logo.png" class='image' width="117" height="47">
       <div class="title">{{title}}</div>
     </header>
 
@@ -31,7 +32,7 @@ export default {
   },
   data: function() {
     return {
-      title: 'My App Title',
+      title: 'Faircorp',
       navTable: ['Windows','Rooms'],
       navSelected: 'Windows'
     }
@@ -54,7 +55,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: #F7F7F7;
+  margin-top: 5px;
+}
+
+.title {
+  margin-left: 5px;
+  font-size: 35px;
+  font-family:fantasy;
+  font-style: bold;
+  color: #000000;
 }
 
 </style>

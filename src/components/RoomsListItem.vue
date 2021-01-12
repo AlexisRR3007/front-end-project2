@@ -68,6 +68,7 @@ export default {
 }
 
 .room {
+  background-color: white;
   .top-row {
     cursor: pointer;
   }
