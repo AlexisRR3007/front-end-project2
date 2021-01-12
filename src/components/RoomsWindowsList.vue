@@ -21,7 +21,6 @@
             :window="window"
             :key="window.id"
             @window-updated="updateWindow"
-            ref="windowslistref"
           >
           </windows-list-item>
   </div>

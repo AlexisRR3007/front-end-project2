@@ -2,7 +2,7 @@
   <div class="room border border-secondary rounded p-2 mb-2" :class="{expanded: isExpanded}">
     <div class="top-row d-flex" @click="toggleExpand">
       <div class="room-name fw-bold pe-3">{{room.name}}</div>
-      <div class="room-name text-muted">Floor {{room.floor}}</div>
+      <div class="room-name text-muted">Floor {{room.floor.floorNumber}}</div>
 
       <div class="expand-button ms-auto">
         {{ isExpanded ? '&#9660;' : '&#9658;' }}
@@ -14,7 +14,7 @@
        <div class="windows-list pt-3 d-flex flex-column">
           <rooms-windows-list 
             :roomId="room.id"
-            :windows="room.listOfWindow"
+            :windows="room.listOfWindows"
           >
           </rooms-windows-list>
           </div>
