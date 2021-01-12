@@ -96,6 +96,7 @@ export default {
 }
 
 .window {
+  background-color: white;
   .top-row {
     cursor: pointer;
   }
