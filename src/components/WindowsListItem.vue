@@ -2,7 +2,7 @@
   <div class="window border border-secondary rounded p-2 mb-2" :class="{expanded: isExpanded}">
     <div class="top-row d-flex" @click="toggleExpand">
       <div class="window-name fw-bold pe-3">{{window.name}}</div>
-      <div class="room-name text-muted">{{window.roomName}}</div>
+      <div class="room-name text-muted">{{window.room.name}}</div>
 
       <div class="open-status ms-4" :class="{open: isWindowOpen && !windowIsSwitchingIcon, closed: !isWindowOpen && !windowIsSwitchingIcon}">
         <template v-if="isWindowOpen && !windowIsSwitchingIcon">
