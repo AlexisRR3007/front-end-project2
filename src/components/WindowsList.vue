@@ -1,5 +1,6 @@
 <template>
   <div class="windows-list pt-3">
+    <window-create></window-create>    
     <windows-list-item 
       v-for="window in windows"
       :window="window"
@@ -15,10 +16,12 @@
 import axios from 'axios';
 import {API_HOST} from '../config';
 import WindowsListItem from './WindowsListItem';
+import WindowCreate from './WindowCreate.vue';
 
 export default {
   components: {
-    WindowsListItem
+    WindowsListItem,
+    WindowCreate
   },
   name: 'WindowsList',
   data: function() {
