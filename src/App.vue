@@ -10,7 +10,6 @@
         :navTable="navTable"
         :navSelected="navSelected"
         @navItem-updated="updatedNavItem"></main-navigation>
-
       <windows-list v-if="isSelected('Windows')"></windows-list>
       <rooms-list v-if="isSelected('Rooms')"></rooms-list>
 
