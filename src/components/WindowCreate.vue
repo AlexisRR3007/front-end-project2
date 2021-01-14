@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
   <div class="windows-create pt-3 border border-secondary rounded p-2 mb-2">
     <i>Window ID </i>
@@ -132,4 +131,3 @@ export default {
 
 </script>
 
->>>>>>> a5f020c7ae224f7df33b2feffe9119bd84b9fd47
