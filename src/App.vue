@@ -10,8 +10,6 @@
         :navTable="navTable"
         :navSelected="navSelected"
         @navItem-updated="updatedNavItem"></main-navigation>
-
-      <window-create v-if="isSelected('Windows')"></window-create>
       <windows-list v-if="isSelected('Windows')"></windows-list>
       <rooms-list v-if="isSelected('Rooms')"></rooms-list>
 
@@ -23,15 +21,13 @@
 import MainNavigation from './components/MainNavigation.vue';
 import WindowsList from './components/WindowsList.vue';
 import RoomsList from './components/RoomsList.vue';
-import WindowCreate from './components/WindowCreate.vue';
 
 export default {
   name: 'App',
   components: {
     MainNavigation,
     WindowsList,
-    RoomsList,
-    WindowCreate
+    RoomsList
   },
   data: function() {
     return {
