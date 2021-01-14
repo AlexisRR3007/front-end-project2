@@ -1,6 +1,7 @@
 <template>
   <div class="windows-list pt-3">
-    <window-create></window-create>    
+       <window-create   
+      @window-updated="updateWindow"></window-create>     
     <windows-list-item 
       v-for="window in windows"
       :window="window"
