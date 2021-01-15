@@ -7,6 +7,7 @@
       :window="window"
       :key="window.id"  
       @window-updated="updateWindow"
+      @window-deleted="deleteWindow"
     >
     </windows-list-item>
   </div>
@@ -43,6 +44,10 @@ export default {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
       let index = this.windows.findIndex(window => window.id === newWindow.id);
       this.windows.splice(index, 1, newWindow);
+    },
+    deleteWindow(windowId) {
+      let index = this.windows.findIndex(window => window.id === windowId);
+      this.windows.splice(index, 1);
     }
   }
 }

@@ -31,7 +31,11 @@
           class="btn btn-primary me-2"
           :class="{disabled: windowIsSwitching}" 
           @click="switchWindow">{{ isWindowOpen ? 'Close' : 'Open' }} window</button>
-        <button type="button" class="btn btn-danger disabled">Delete window</button>
+        <button 
+        type="button" 
+        class="btn btn-danger"
+        :class="{disabled: windowIsDeleting}" 
+          @click="deleteWindow">Delete window</button>
       </div>
     </template>
   </div>
@@ -48,7 +52,8 @@ export default {
     return {
       isExpanded: false,
       windowIsSwitching: false,
-      windowIsSwitchingIcon: false
+      windowIsSwitchingIcon: false,
+      windowIsDeleting: false,
     }
   }, 
   computed: {
@@ -70,6 +75,13 @@ export default {
       clearTimeout(icon);
       this.windowIsSwitchingIcon = false;
       this.windowIsSwitching = false;
+    },
+    async deleteWindow() {
+      this.windowIsDeleting = true;
+      this.isExpanded ? this.toggleExpand() : null;
+      await axios.delete(`${API_HOST}/api/windows/${this.window.id}`);
+      this.$emit('window-deleted',this.window.id);
+      this.windowIsdeleting = false;
     }
   }
 }
