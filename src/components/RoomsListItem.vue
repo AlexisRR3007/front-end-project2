@@ -17,6 +17,12 @@
             :windows="room.listOfWindows"
           >
           </rooms-windows-list>
+          <hr>
+          <rooms-heaters-list 
+            :roomId="room.id"
+            :heaters="room.listOfHeaters"
+          >
+          </rooms-heaters-list>
           </div>
     </template>
 
@@ -27,12 +33,14 @@
 import axios from 'axios';
 import {API_HOST} from '../config';
 import RoomsWindowsList from './RoomsWindowsList';
+import RoomsHeatersList from './RoomsHeatersList';
 
 export default {
   name: 'RoomsListItem',
   props: ['room'],
   components: {
-    RoomsWindowsList
+    RoomsWindowsList,
+    RoomsHeatersList
   },
   data: function() {
     return {
