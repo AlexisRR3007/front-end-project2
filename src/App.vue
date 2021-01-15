@@ -10,8 +10,9 @@
         :navTable="navTable"
         :navSelected="navSelected"
         @navItem-updated="updatedNavItem"></main-navigation>
-      <windows-list v-if="isSelected('Windows')"></windows-list>
       <rooms-list v-if="isSelected('Rooms')"></rooms-list>
+      <windows-list v-if="isSelected('Windows')"></windows-list>
+      <heaters-list v-if="isSelected('Heaters')"></heaters-list>
 
     </section>
   </div>
@@ -20,6 +21,7 @@
 <script>
 import MainNavigation from './components/MainNavigation.vue';
 import WindowsList from './components/WindowsList.vue';
+import HeatersList from './components/HeatersList.vue';
 import RoomsList from './components/RoomsList.vue';
 
 export default {
@@ -27,13 +29,14 @@ export default {
   components: {
     MainNavigation,
     WindowsList,
+    HeatersList,
     RoomsList
   },
   data: function() {
     return {
       title: 'Faircorp',
-      navTable: ['Windows','Rooms'],
-      navSelected: 'Windows'
+      navTable: ['Rooms','Windows','Heaters'],
+      navSelected: 'Rooms'
     }
   },
   methods: {

@@ -1,19 +1,19 @@
 <template>
-  <div class="windows-create pt-3 border border-secondary rounded p-2 mb-2">
-    <i>Window Name </i>
+  <div class="heaters-create pt-3 border border-secondary rounded p-2 mb-2">
+    <i>Heater Name </i>
     <input v-model="name" />
     <br>
     <i>Room ID </i>
     <input v-model="roomId" />
     <br>
-    <i>Window Status </i>
-    <input v-model="windowStatus" />
+    <i>Heater Status </i>
+    <input v-model="heaterStatus" />
     <hr/>
-    <button type="button" @click="createWindow">Create Window</button>   
+    <button type="button" @click="createHeater">Create Heater</button>   
     <hr/>
      <ul v-if="errors && errors.length">
       <li v-for="error of errors"
-          :key="error">
+        :key="error">
         {{error.message}}
       </li>
     </ul>
@@ -27,28 +27,28 @@ import {API_HOST} from '../config';
 
 export default {
 
-  name: 'WindowCreate',
-  props: ['windows'],
+  name: 'HeaterCreate',
+  props: ['heaters'],
   
   data: function() {
     return {
       name: "",
       roomId: "",
-      windowStatus: "",
+      heaterStatus: "",
       errors: []
     }
   },
 
   methods: {
-   async createWindow() {
+   async createHeater() {
       try {
-       let response = await axios.post(`${API_HOST}/api/windows`, {
+       let response = await axios.post(`${API_HOST}/api/heaters`, {
   "name": this.name,
   "roomId": this.roomId,
-  "windowStatus": this.windowStatus
+  "heaterStatus": this.heaterStatus
   });
-        let updatedWindow = response.data;
-      this.$emit('window-updated', updatedWindow);
+        let updatedHeater = response.data;
+      this.$emit('heater-updated', updatedHeater);
       } catch (e) {
         this.errors.push(e)
       }

@@ -36,7 +36,7 @@ import {API_HOST} from '../config';
 import WindowsListItem from './WindowsListItem';
 
 export default {
-  name: 'RoomsListItem',
+  name: 'RoomsWindowsList',
   props: ['windows',"roomId"],
   components: {
     WindowsListItem
