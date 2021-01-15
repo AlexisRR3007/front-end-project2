@@ -1,51 +1,57 @@
 <template>
-  <div class="room border border-secondary rounded p-2 mb-2" :class="{expanded: isExpanded}">
+  <div
+    class="room border border-secondary rounded p-2 mb-2"
+    :class="{ expanded: isExpanded }"
+  >
     <div class="top-row d-flex align-items-center" @click="toggleExpand">
       <div class="room-name fw-bold pe-3">Windows</div>
 
-      <button type="button" 
-          class="btn btn-primary ms-auto me-4 btn-sm" 
-          :class="{disabled: windowsAreSwitching}"
-          @click.stop="switchAllWindows" > Switch all windows</button>
+      <button
+        type="button"
+        class="btn btn-primary ms-auto me-4 btn-sm"
+        :class="{ disabled: windowsAreSwitching }"
+        @click.stop="switchAllWindows"
+      >
+        Switch all windows
+      </button>
 
       <div class="expand-button">
-        {{ isExpanded ? '&#9660;' : '&#9658;' }}
+        {{ isExpanded ? "&#9660;" : "&#9658;" }}
       </div>
     </div>
 
     <template v-if="isExpanded">
-      <hr/>
-       <div class="windows-list pt-3 d-flex flex-column">
-          <windows-list-item 
-            v-for="window in windows"
-            :window="window"
-            :key="window.id"
-            @window-updated="updateWindow"
-            @window-deleted="deleteWindow"
-          >
-          </windows-list-item>
-  </div>
+      <hr />
+      <div class="windows-list pt-3 d-flex flex-column">
+        <windows-list-item
+          v-for="window in windows"
+          :window="window"
+          :key="window.id"
+          @window-updated="updateWindow"
+          @window-deleted="deleteWindow"
+        >
+        </windows-list-item>
+      </div>
     </template>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import {API_HOST} from '../config';
-import WindowsListItem from './WindowsListItem';
+import axios from "axios";
+import { API_HOST } from "../config";
+import WindowsListItem from "./WindowsListItem";
 
 export default {
-  name: 'RoomsWindowsList',
-  props: ['windows',"roomId"],
+  name: "RoomsWindowsList",
+  props: ["windows", "roomId"],
   components: {
-    WindowsListItem
+    WindowsListItem,
   },
   data: function() {
     return {
       isExpanded: false,
-      windowsAreSwitching : false
-    }
+      windowsAreSwitching: false,
+    };
   },
   methods: {
     toggleExpand() {
@@ -54,26 +60,28 @@ export default {
     async switchAllWindows() {
       this.windowsAreSwitching = true;
       await axios.put(`${API_HOST}/api/rooms/${this.roomId}/switchWindow`);
-      for(let i = 0; i < this.windows.length; i++) {
-        this.windows[i].windowStatus = this.windows[i].windowStatus==='OPEN' ? 'CLOSED' : 'OPEN';
+      for (let i = 0; i < this.windows.length; i++) {
+        this.windows[i].windowStatus =
+          this.windows[i].windowStatus === "OPEN" ? "CLOSED" : "OPEN";
       }
       this.windowsAreSwitching = false;
     },
     updateWindow(newWindow) {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
-      let index = this.windows.findIndex(window => window.id === newWindow.id);
+      let index = this.windows.findIndex(
+        (window) => window.id === newWindow.id
+      );
       this.windows.splice(index, 1, newWindow);
     },
     deleteWindow(windowId) {
-      let index = this.windows.findIndex(window => window.id === windowId);
+      let index = this.windows.findIndex((window) => window.id === windowId);
       this.windows.splice(index, 1);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 .open-status {
   .icon {
     position: relative;

@@ -1,11 +1,10 @@
 <template>
   <div class="windows-list pt-3">
-       <window-create   
-      @window-updated="updateWindow"></window-create>     
-    <windows-list-item 
+    <window-create @window-updated="updateWindow"></window-create>
+    <windows-list-item
       v-for="window in windows"
       :window="window"
-      :key="window.id"  
+      :key="window.id"
       @window-updated="updateWindow"
       @window-deleted="deleteWindow"
     >
@@ -13,24 +12,23 @@
   </div>
 </template>
 
-
 <script>
-import axios from 'axios';
-import {API_HOST} from '../config';
-import WindowsListItem from './WindowsListItem';
-import WindowCreate from './WindowCreate.vue';
+import axios from "axios";
+import { API_HOST } from "../config";
+import WindowsListItem from "./WindowsListItem";
+import WindowCreate from "./WindowCreate.vue";
 
 export default {
   components: {
     WindowsListItem,
-    WindowCreate
+    WindowCreate,
   },
-  name: 'WindowsList',
+  name: "WindowsList",
   data: function() {
     return {
       /* Initialize windows with an empty array, while waiting for actual data to be retrieved from the API */
-      windows: []
-    }
+      windows: [],
+    };
   },
 
   created: async function() {
@@ -42,13 +40,15 @@ export default {
   methods: {
     updateWindow(newWindow) {
       /* Find the place of window objectw ith the same Id in the array, and replace it */
-      let index = this.windows.findIndex(window => window.id === newWindow.id);
+      let index = this.windows.findIndex(
+        (window) => window.id === newWindow.id
+      );
       this.windows.splice(index, 1, newWindow);
     },
     deleteWindow(windowId) {
-      let index = this.windows.findIndex(window => window.id === windowId);
+      let index = this.windows.findIndex((window) => window.id === windowId);
       this.windows.splice(index, 1);
-    }
-  }
-}
+    },
+  },
+};
 </script>

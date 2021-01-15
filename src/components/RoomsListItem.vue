@@ -1,62 +1,57 @@
 <template>
-  <div class="room border border-secondary rounded p-2 mb-2" :class="{expanded: isExpanded}">
+  <div
+    class="room border border-secondary rounded p-2 mb-2"
+    :class="{ expanded: isExpanded }"
+  >
     <div class="top-row d-flex" @click="toggleExpand">
-      <div class="room-name fw-bold pe-3">{{room.name}}</div>
-      <div class="room-name text-muted">Floor {{room.floor.floorNumber}}</div>
+      <div class="room-name fw-bold pe-3">{{ room.name }}</div>
+      <div class="room-name text-muted">Floor {{ room.floor.floorNumber }}</div>
 
       <div class="expand-button ms-auto">
-        {{ isExpanded ? '&#9660;' : '&#9658;' }}
+        {{ isExpanded ? "&#9660;" : "&#9658;" }}
       </div>
     </div>
 
     <template v-if="isExpanded">
-      <hr/>
-       <div class="windows-list pt-3 d-flex flex-column">
-          <rooms-windows-list 
-            :roomId="room.id"
-            :windows="room.listOfWindows"
-          >
-          </rooms-windows-list>
-          <hr>
-          <rooms-heaters-list 
-            :roomId="room.id"
-            :heaters="room.listOfHeaters"
-          >
-          </rooms-heaters-list>
-          </div>
+      <hr />
+      <div class="windows-list pt-3 d-flex flex-column">
+        <rooms-windows-list :roomId="room.id" :windows="room.listOfWindows">
+        </rooms-windows-list>
+        <hr />
+        <rooms-heaters-list :roomId="room.id" :heaters="room.listOfHeaters">
+        </rooms-heaters-list>
+      </div>
     </template>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import {API_HOST} from '../config';
-import RoomsWindowsList from './RoomsWindowsList';
-import RoomsHeatersList from './RoomsHeatersList';
+import axios from "axios";
+import { API_HOST } from "../config";
+import RoomsWindowsList from "./RoomsWindowsList";
+import RoomsHeatersList from "./RoomsHeatersList";
 
 export default {
-  name: 'RoomsListItem',
-  props: ['room'],
+  name: "RoomsListItem",
+  props: ["room"],
   components: {
     RoomsWindowsList,
-    RoomsHeatersList
+    RoomsHeatersList,
   },
   data: function() {
     return {
-      isExpanded: false
-    }
+      isExpanded: false,
+    };
   },
   methods: {
     toggleExpand() {
       this.isExpanded = !this.isExpanded;
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 .open-status {
   .icon {
     position: relative;
